@@ -18,12 +18,14 @@ services:
       - kafka-service-volume:/runtime/kafka:z
     depends_on:
       - docker-proxy
+      - zookeeper
   docker-proxy:
     build: ./docker-proxy
     ports:
       - "2375"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
 volumes:
   kafka-logs-volume:
   kafka-service-volume:
