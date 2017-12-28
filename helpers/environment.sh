@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-export BROKERS_LIST=`docker-compose ps -q kafka|xargs docker inspect --format='{{range $index, $value := .Config.Env}}{{if eq (index (split $value "=") 0) "HOST_IP_ADDRESS" }}{{range $i, $part := (split $value "=")}}{{if gt $i 1}}{{print "="}}{{end}}{{if gt $i 0}}{{print $part}}{{end}}{{end}}{{end}}{{end}}:{{ (index (index .NetworkSettings.Ports "9092/tcp") 0).HostPort}}'|paste -sd "," -`
