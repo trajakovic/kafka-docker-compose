@@ -1,5 +1,17 @@
-FROM openjdk:8u151-jre-alpine
+# Builder for java utility "kafka-property-merger"
+FROM openjdk:8u151-jdk-alpine as builder
+LABEL maintainer="tomislav.rajakovic@gmail.com"
 
+WORKDIR /build
+RUN \
+    apk add --update --upgrade --no-cache git \
+    && git clone -b "v1.0.0" --single-branch --depth=1 https://github.com/trajakovic/kafka-property-merger.git \
+    && cd /build/kafka-property-merger \
+    && ./gradlew assemble bootRepackage \
+    && echo "Library built, location /build/kafka-property-merger/build/libs" && ls -la /build/kafka-property-merger/build/libs
+
+# Base image for Apache Kafka
+FROM openjdk:8u151-jre-alpine
 LABEL maintainer="tomislav.rajakovic@gmail.com"
 
 RUN \
@@ -14,7 +26,7 @@ RUN cd /usr/local/lib \
     && rm -f ./kafka_2.11-1.0.0.tgz \
     && echo "export PATH=\$PATH:/usr/local/lib/kafka/bin" >> /etc/profile
 
-COPY kafka-property-configurer-1.0.0.jar /usr/local/lib/kafka-helper/property-configurer.jar
+COPY --from=builder /build/kafka-property-merger/build/libs/kafka-property-merger-*.jar /usr/local/lib/kafka-helper/property-configurer.jar
 COPY entrypoint.sh /usr/local/lib/kafka/entrypoint.sh
 
 RUN cd /usr/local/lib \
