@@ -12,4 +12,6 @@ java -jar /usr/local/lib/kafka-helper/property-configurer.jar ${HOME_LOCATION}/c
 
 echo "Merged server.properties:"
 cat /runtime/kafka${CONTAINER_NAME}/server.properties
+echo "Waiting a bit (this helps zookeeper to give us right broker.id)..."
+sleep $(( (RANDOM%100)/10 ))
 exec ${HOME_LOCATION}/bin/kafka-server-start.sh /runtime/kafka${CONTAINER_NAME}/server.properties
