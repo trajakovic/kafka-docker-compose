@@ -9,7 +9,7 @@ services:
     ports:
       - "9092"
     environment:
-      HOST_IP_ADDRESS: 192.168.99.100 # set this to docker-machine IP or host IP (on linux)
+      #HOST_IP_ADDRESS: 192.168.99.100 # set this to docker-machine IP or host IP (on linux)
       DOCKER_HOST: docker-proxy:2375
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
