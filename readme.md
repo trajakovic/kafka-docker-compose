@@ -30,7 +30,7 @@ There are 2 levels of configuration:
 
  1. docker(-compose) environment variables starting with prefix **KAFKA_** are translated to Kafka's broker config, 
  ie. `KAFKA_ZOOKEEPER_CONNECT: myzookeeper:2375` is translated to `zookeeper.connect=myzookeeper:2375` property inside server.properties
- 2. scripts mounted on path `/runtime/kafka/extras` could `export KAFKA_SOME_ENV_VARIABLE` and then those variables are merged into
+ 2. scripts mounted on path `/runtime/kafka/extras` could `export KAFKA_SOME_ENV_VARIABLE` and those variables are merged into
  server.properties
     * they're executed in alphabetical order (chaining is possible)
     * exported environment variables will override same variables declared in docker(-compose) environment
