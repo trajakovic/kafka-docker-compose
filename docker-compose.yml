@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+  zookeeper:
+    image: zookeeper:3.4.11
+    ports:
+      - "2181:2181"
+  kafka:
+    build: ./kafka
+    ports:
+      - "9092"
+    environment:
+      HOST_IP_ADDRESS: 192.168.99.100 # set this to docker-machine IP or host IP (on linux)
+      DOCKER_HOST: docker-proxy:2375
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - ./kafka/extras:/runtime/kafka/extras
+      - kafka-logs-volume:/runtime/logs:z
+      - kafka-service-volume:/runtime/kafka:z
+    depends_on:
+      - docker-proxy
+  docker-proxy:
+    build: ./docker-proxy
+    ports:
+      - "2375"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+volumes:
+  kafka-logs-volume:
+  kafka-service-volume:
