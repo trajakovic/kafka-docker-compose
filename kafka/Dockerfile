@@ -6,7 +6,7 @@ LABEL maintainer="tomislav.rajakovic@gmail.com"
 WORKDIR /build
 RUN \
     apk add --update --upgrade --no-cache git \
-    && git clone -b "v1.0.0" --single-branch --depth=1 https://github.com/trajakovic/java-environment-to-property-merger.git \
+    && git clone -b "v1.0.0" --single-branch --depth=1 https://github.com/trajakovic/environment-to-property-merger.git \
     && cd /build/kafka-property-merger \
     && ./gradlew assemble bootRepackage \
     && echo "Library built, location /build/kafka-property-merger/build/libs" && ls -la /build/kafka-property-merger/build/libs
