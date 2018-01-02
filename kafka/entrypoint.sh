@@ -8,7 +8,7 @@ done
 mkdir /runtime/logs${CONTAINER_NAME}
 mkdir /runtime/kafka${CONTAINER_NAME}
 
-java -jar /usr/local/lib/kafka-helper/property-configurer.jar ${HOME_LOCATION}/config/server.properties > /runtime/kafka${CONTAINER_NAME}/server.properties
+java -jar /usr/local/lib/kafka-helper/property-configurer.jar ${HOME_LOCATION}/config/server.properties KAFKA_ > /runtime/kafka${CONTAINER_NAME}/server.properties
 
 echo "Merged server.properties:"
 cat /runtime/kafka${CONTAINER_NAME}/server.properties

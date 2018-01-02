@@ -7,7 +7,7 @@ WORKDIR /build
 RUN \
     apk add --update --upgrade --no-cache git \
     && mkdir -p /build/kafka-property-merger && cd /build/kafka-property-merger \
-    && git clone -b "v1.0.0" --single-branch --depth=1 https://github.com/trajakovic/environment-to-property-merger.git . \
+    && git clone -b "v2.0.0" --single-branch --depth=1 https://github.com/trajakovic/environment-to-property-merger.git . \
     && ./gradlew assemble bootRepackage \
     && echo "Library built, location /build/kafka-property-merger/build/libs" && ls -la ./build/libs
 
