@@ -9,9 +9,10 @@ services:
     ports:
       - "9092"
     environment:
-      #HOST_IP_ADDRESS: 192.168.99.100 # set this to docker-machine IP or host IP (on linux)
+      HOST_IP_ADDRESS: 127.0.0.1 # set this to docker-machine IP or host IP (on linux) or even 127.0.0.1
       DOCKER_HOST: docker-proxy:2375
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      JMX_PORT: 1337
     volumes:
       - ./kafka/extras:/runtime/kafka/extras
       - kafka-logs-volume:/runtime/logs:z
@@ -19,6 +20,13 @@ services:
     depends_on:
       - docker-proxy
       - zookeeper
+  kafka-manager:
+    build: ./kafka-manager
+    ports:
+      - "9000:9000"
+    depends_on:
+      - zookeeper
+      - kafka
   docker-proxy:
     build: ./docker-proxy
     ports:

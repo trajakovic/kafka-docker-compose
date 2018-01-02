@@ -13,7 +13,7 @@ fi
 
 
 if [[ ! -z "$BROKER_LIST" && ! -z "$ZOOKEEPER" ]]; then
-  
+
 echo "Environment variables set:"
 echo "  \$BROKER_LIST=${BROKER_LIST}"
 echo "  \$ZOOKEEPER=${ZOOKEEPER}"
@@ -29,6 +29,6 @@ echo "  \$KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server \$BROKER_L
 echo ""
 echo ""
 echo "Fill topic with 10k random strings:"
-echo "  cat /dev/urandom|base64|nl|head -n 100000|$KAFKA_HOME/bin/kafka-console-producer.sh --broker-list $BROKER_LIST --topic test"
+echo "  cat /dev/urandom|base64|nl|head -n 100000|\$KAFKA_HOME/bin/kafka-console-producer.sh --broker-list \$BROKER_LIST --topic test"
 echo ""
 fi

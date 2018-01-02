@@ -1,5 +1,5 @@
-# Builder for java utility "kafka-property-merger"
-FROM openjdk:8u151-jdk-alpine as builder
+# Builder for java utility "environment-to-property-merger"
+FROM openjdk:8-jdk-alpine as builder
 LABEL maintainer="tomislav.rajakovic@gmail.com"
 
 
@@ -8,11 +8,10 @@ RUN \
     apk add --update --upgrade --no-cache git \
     && mkdir -p /build/kafka-property-merger && cd /build/kafka-property-merger \
     && git clone -b "v2.0.0" --single-branch --depth=1 https://github.com/trajakovic/environment-to-property-merger.git . \
-    && ./gradlew assemble bootRepackage \
-    && echo "Library built, location /build/kafka-property-merger/build/libs" && ls -la ./build/libs
+    && ./gradlew assemble bootRepackage
 
 # Base image for Apache Kafka
-FROM openjdk:8u151-jre-alpine
+FROM openjdk:8-jre-alpine
 LABEL maintainer="tomislav.rajakovic@gmail.com"
 
 RUN \
