@@ -20,6 +20,13 @@ services:
     depends_on:
       - docker-proxy
       - zookeeper
+  kafka-manager:
+    build: ./kafka-manager
+    ports:
+      - "9000:9000"
+    depends_on:
+      - zookeeper
+      - kafka
   docker-proxy:
     build: ./docker-proxy
     ports:
